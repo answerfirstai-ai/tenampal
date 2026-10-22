@@ -1,5 +1,6 @@
 // Signature: the hours bar shows the real LA day/time (open or closed), and the page light warms 10 -> 4 as you scroll.
-(()=>{document.querySelectorAll('.mnav a').forEach(a=>a.addEventListener('click',()=>a.closest('details').open=false));
+(()=>{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver'in window){const r=document.querySelectorAll('.rv:not(.lead)');document.documentElement.classList.add('rv-on');const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});r.forEach(x=>io.observe(x));document.querySelector('.rv.lead')?.classList.add('in')}
+document.querySelectorAll('.mnav a').forEach(a=>a.addEventListener('click',()=>a.closest('details').open=false));
 const H={2:[11,16],3:[10,16],4:[10,16],5:[10,16],6:[10,16]};
 const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',weekday:'short',hour:'numeric',hour12:false}).formatToParts(new Date());
 const wd=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].indexOf(p.find(x=>x.type=='weekday').value),hr=+p.find(x=>x.type=='hour').value%24;

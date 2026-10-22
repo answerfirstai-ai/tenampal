@@ -50,10 +50,10 @@ PRE=f'<link rel="preload" as="image" type="image/avif" media="(max-width:760px)"
 import sys as _s;_s.path.insert(0,'/workspace/sites/_kit');from social import export,pic as spic,grade_warm
 SP='/workspace/clients/la-rest-tenampal/photos/social/';OD=R+'assets/img/ig'
 G=lambda im:grade_warm(im,lift=10,warm=4)
-P={k:export(SP+f'tenampal_{n}.jpg',OD,'t'+n,w,grade=G) for k,n,w in [('lead','02',675),('ench','01',480),('nop','05',480),('cab','03',720),('squ','04',480)]}
-def fig(k,cap,cls,sizes=None,lazy=True): return f'<figure class="print {cls}">{spic(B,"assets/img/ig",P[k],cap+". Photo from Tenampal\'s own Instagram, @tenampal.",lazy=lazy,sizes=sizes)}<figcaption>{cap}</figcaption></figure>'
+P={k:export(SP+f'tenampal_{n}.jpg',OD,'t'+n,w,crop=c,grade=G) for k,n,w,c in [('lead','02',520,None),('ench','01',600,(0,.16,1,.83)),('nop','05',260,None),('cab','03',560,(.1,0,.9,1)),('squ','04',360,None),('tor','09',600,(0,.12,1,.79))]}
+def fig(k,cap,cls,sizes=None,lazy=True,alt=None): return f'<figure class="print rv {cls}">{spic(B,"assets/img/ig",P[k],(alt or cap)+". Photo from Tenampal\'s own Instagram, @tenampal.",lazy=lazy,sizes=sizes)}<figcaption>{cap}</figcaption></figure>'
 def menu_html(h='h2'):
-  cols=f'<div class="mcol">{grp(*MENU[0])}{fig("ench","Enchiladas verdes","sq","(max-width:760px) 92vw, 480px")}</div><div class="mcol">{grp(*MENU[1])}{grp(*MENU[2])}{fig("nop","Huevos con nopales","sq","(max-width:760px) 92vw, 480px")}</div>'
+  cols=f'<div class="mcol">{grp(*MENU[0])}</div><div class="mcol">{grp(*MENU[1])}{grp(*MENU[2])}</div>'
   return f'<div class="board"><div class="board-head"><{h} id="menu-h">Menu</{h}><p>{PRICE_LINE}</p></div><div class="mcols">{cols}</div><p class="fine-b">Item names per public menu listings (MenuPix, Fantuan). Ask at the counter for today\'s board.</p></div>'
 grp=lambda t,items:f'<section class="mg" aria-label="{html.escape(t)}"><h3>{html.escape(t)}</h3><ul>{"".join(f"<li>{html.escape(i)}</li>" for i in items)}</ul></section>'
 DAYS=[('Mon',None),('Tue',None),('Wed',(11,16)),('Thu',(10,16)),('Fri',(10,16)),('Sat',(10,16)),('Sun',(10,16))]
@@ -62,15 +62,15 @@ home=f'''<section class="hero" aria-labelledby="h1"><div class="hero-img">{pic("
 <div class="hero-in"><p class="hr hr-10" aria-hidden="true">10</p><p class="hr-cap hr-cap-10">10 AM · doors open Thu–Sun</p><h1 id="h1">Tenampal</h1>
 <p class="sub">Kitchen at {ADDR}, Boyle Heights. Wed–Sun, until 4 PM.</p>
 <div class="ctas">{call()}{dirb()}{igb()}</div></div></section>
-<section class="sec sec-12" aria-labelledby="menu-h"><p class="hr" aria-hidden="true">12</p><p class="hr-cap">12 PM · the menu</p><div class="wrap noon"><div>{menu_html()}<div class="ctas">{call()}<a class="btn btn-line" href="{B}menu/">Full menu page</a></div></div><div class="lead-col">{fig("lead","Burrito de suadero with mole","lead","(max-width:760px) 92vw, 675px",False)}<p class="credit">Photos: {IGH}</p></div></div></section>
+<section class="sec sec-12" aria-labelledby="menu-h"><p class="hr" aria-hidden="true">12</p><p class="hr-cap">12 PM · the menu</p><div class="wrap noon"><div>{menu_html()}{fig("ench","Enchiladas verdes","p-ench","(max-width:760px) 88vw, 600px")}<div class="ctas">{call()}<a class="btn btn-line" href="{B}menu/">Full menu page</a></div></div><div class="lead-col"><div class="stack">{fig("lead","Burrito de suadero with mole","lead","(max-width:760px) 88vw, 520px",False)}{fig("nop","Huevos con nopales","p-nop","(max-width:760px) 50vw, 260px")}</div><p class="credit">Photos: {IGH}</p></div></div></section>
 <section class="sec sec-2" aria-labelledby="fam-h"><p class="hr" aria-hidden="true">2</p><p class="hr-cap">2 PM · seasonal plates</p><div class="wrap two">
 <div><h2 id="fam-h">Family-owned, per Eater LA</h2><p class="lede">Eater LA lists Tenampal as a family-owned kitchen on E 1st St. <a href="{EATER}" target="_blank" rel="noopener">Read the Eater LA listing</a>.</p></div>
-<div><div class="snap">{fig("cab","Charred cabbage","w720","(max-width:760px) 86vw, 720px")}{fig("squ","Roasted squash with chorizo","w480","(max-width:760px) 70vw, 480px")}</div><p class="credit">Seasonal plates from {IGH}</p></div></div></div></section>
+<div class="mosaic">{fig("cab","Charred cabbage","p-cab","(max-width:760px) 88vw, 560px")}{fig("squ","Roasted squash with chorizo","p-squ","(max-width:760px) 64vw, 360px")}{fig("tor","From @tenampal","p-tor","(max-width:760px) 88vw, 600px",alt="A toasted sandwich cut in half")}<p class="credit">Seasonal plates from {IGH}</p></div></div></div></section>
 <section class="sec sec-3" id="hours" aria-labelledby="hours-h"><p class="hr" aria-hidden="true">3</p><p class="hr-cap">3 PM · the hours</p><div class="wrap">
 <h2 id="hours-h">Hours, per Google Maps</h2><p class="today" data-today aria-live="polite">Wed 11 AM-4 PM, Thu-Sun 10 AM-4 PM. Closed Monday and Tuesday.</p>
 <ol class="light" aria-label="Weekly hours">{bar}</ol><p class="muted">Per Google Maps and The LA Local listings. <a href="{TEL}">Call {PHONE}</a> to confirm.</p></div></section>'''
 menu=f'''<section class="phero"><div class="wrap"><p class="eyebrow">Menu</p><h1>The board</h1><p class="lede">{PRICE_LINE}</p><div class="ctas">{call()}{dirb()}</div></div></section>
-<section class="sec sec-12" style="padding-top:2rem"><div class="wrap">{menu_html()}</div></section>'''
+<section class="sec sec-12" style="padding-top:2rem"><div class="wrap">{menu_html()}<div class="mpair">{fig("ench","Enchiladas verdes","p-ench","(max-width:760px) 88vw, 600px")}{fig("nop","Huevos con nopales","p-nop","(max-width:760px) 50vw, 260px")}</div><p class="credit">Photos: {IGH}</p></div></section>'''
 rows=''.join(f'<tr><th scope="row">{d}</th><td>{f"{h[0]} AM - {h[1]-12} PM" if h else "Closed"}</td></tr>' for d,h in [("Monday",None),("Tuesday",None),("Wednesday",(11,16)),("Thursday",(10,16)),("Friday",(10,16)),("Saturday",(10,16)),("Sunday",(10,16))])
 visit=f'''<section class="phero"><div class="wrap"><p class="eyebrow">Visit</p><h1>1859 E 1st St</h1><address>{NAME}<br>{ADDR}<br>Boyle Heights, {CITY}<br><a href="{TEL}">{PHONE}</a></address><div class="ctas">{dirb("btn btn-ancho")}{call("btn btn-line")}{igb()}</div></div></section>
 <section class="sec" id="hours"><div class="wrap two"><div class="card"><h2>Hours</h2><table class="hours"><thead><tr><th scope="col">Day</th><th scope="col">Listed hours</th></tr></thead><tbody>{rows}</tbody></table><p class="muted">Per Google Maps and The LA Local. Call to confirm.</p></div>
