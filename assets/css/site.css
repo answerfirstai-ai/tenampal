@@ -91,7 +91,8 @@ address{font-style:normal;font-size:1.15rem;line-height:1.7}
 .mosaic{grid-template-columns:repeat(12,minmax(0,1fr))}.p-cab{grid-column:1/12;grid-row:1}.p-squ{grid-column:5/13;grid-row:2;margin:-3rem 0 0;max-width:none}.p-tor{grid-column:1/13;grid-row:3;margin-top:1.4rem}.mosaic>.credit{grid-column:1/13;grid-row:4}
 .mpair{flex-direction:column;align-items:stretch;margin-top:-1.4rem}.mpair .p-ench{width:94%;margin-left:auto}.mpair .p-nop{width:55%;margin:-2.4rem 0 0 .4rem}}
 .rv-on .rv{opacity:0;translate:0 28px;transition:opacity .7s ease,translate .9s cubic-bezier(.2,.7,.2,1)}.rv-on .rv.in{opacity:1;translate:0 0}
-@media(prefers-reduced-motion:reduce){.rv-on .rv{opacity:1;translate:none}}
+@media(prefers-reduced-motion:reduce){.rv-on .rv{opacity:1;translate:none;transform:none}}
+@media print{.rv-on .rv,.rv{opacity:1!important;translate:none!important;transform:none!important;transition:none!important}}
 .p-nop{left:auto;right:-1.5rem}.p-tor{margin-top:1.8rem}.p-squ{margin-bottom:1rem}
 @media(max-width:760px){.p-nop{right:auto;left:-.3rem;width:48%}.print.lead figcaption{text-align:right}.stack{padding-bottom:5.5rem}.p-tor{margin-top:1.4rem}}
 @media(max-width:760px){.p-nop{left:auto;right:-.3rem;width:44%}.print.lead figcaption{text-align:left;max-width:52%}}
